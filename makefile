@@ -24,22 +24,79 @@ BEAM32UR   := $(patsubst %.ur.md,$(O_DIR)/%.3zu2.beamer.vortrag.ur.tex,$(URMD))
 REVEALSIM     := $(patsubst %.ur.md,$(O_DIR)/%.simple.reveal.vortrag.htm,$(URMD))
 REVEALNIG     := $(patsubst %.ur.md,$(O_DIR)/%.night.reveal.vortrag.htm,$(URMD))
 REVEALUR      := $(patsubst %.ur.md,$(O_DIR)/%.ur.reveal.vortrag.htm,$(URMD))
-HANDOUTPDF    := $(patsubst %.ur.md,$(O_DIR)/%.handout.vortrag.pdf,$(URMD))
+HANDOUTPDF    := $(patsubst %.ur.md,$(O_DIR)/%.handout.vortrag.tex,$(URMD))
 HANDOUTODT    := $(patsubst %.ur.md,$(O_DIR)/%.handout.vortrag.odt,$(URMD))
 
 #TAR=$(SRC:.md=.paket.tar.gz)
 #all:  $(BEAM1610) $(BEAM169) $(BEAM149) $(BEAM54) $(BEAM43) $(BEAM32) $(BEAMTEX) $(HANDOUTPDF) $(HANDOUTODT) $(REVEALSIM) $(REVEALNIG) $(TAR)
 
-all : $(BEAM1610) $(BEAM1610UR) $(BEAM169) $(BEAM169UR) $(BEAM149) $(BEAM149UR) $(BEAM54) $(BEAM54UR) $(BEAM43) $(BEAM43UR) $(BEAM32) $(BEAM32UR) $(REVEALSIM) $(REVEALNIG) $(HANDOUTPDF) $(HANDOUTODT)
+all : \
+	$(BEAM1610) \
+	$(BEAM1610UR) \
+	$(BEAM169) \
+	$(BEAM169UR) \
+	$(BEAM149) \
+	$(BEAM149UR) \
+	$(BEAM54) \
+	$(BEAM54UR) \
+	$(BEAM43) \
+	$(BEAM43UR) \
+	$(BEAM32) \
+	$(BEAM32UR) \
+	$(REVEALSIM) \
+	$(REVEALNIG) \
+	$(REVEALUR) \
+	$(HANDOUTPDF) \
+	$(HANDOUTODT)
 
-beamer : $(BEAM1610) $(BEAM1610UR) $(BEAM169) $(BEAM169UR) $(BEAM149) $(BEAM149UR) $(BEAM54) $(BEAM54UR) $(BEAM43) $(BEAM43UR) $(BEAM32) $(BEAM32UR)
-rebuild-beamer : clean-beamer $(BEAM1610) $(BEAM1610UR) $(BEAM169) $(BEAM169UR) $(BEAM149) $(BEAM149UR) $(BEAM54) $(BEAM54UR) $(BEAM43) $(BEAM43UR) $(BEAM32) $(BEAM32UR)
+beamer : \
+	$(BEAM1610) \
+	$(BEAM1610UR) \
+	$(BEAM169) \
+	$(BEAM169UR) \
+	$(BEAM149) \
+	$(BEAM149UR) \
+	$(BEAM54) \
+	$(BEAM54UR) \
+	$(BEAM43) \
+	$(BEAM43UR) \
+	$(BEAM32) \
+	$(BEAM32UR)
 
-reveal : $(REVEALSIM) $(REVEALNIG) $(REVEALUR)
-rebuild-reveal : clean-reveal $(REVEALSIM) $(REVEALNIG) $(REVEALUR)
+rebuild-beamer : \
+	clean-beamer \
+	$(BEAM1610) \
+	$(BEAM1610UR) \
+	$(BEAM169) \
+	$(BEAM169UR) \
+	$(BEAM149) \
+	$(BEAM149UR) \
+	$(BEAM54) \
+	$(BEAM54UR) \
+	$(BEAM43) \
+	$(BEAM43UR) \
+	$(BEAM32) \
+	$(BEAM32UR)
 
-handout : $(HANDOUTPDF) $(HANDOUTODT)
-rebuild-handout : clean-handout $(HANDOUTPDF) $(HANDOUTODT)
+reveal : \
+	$(REVEALSIM) \
+	$(REVEALNIG) \
+	$(REVEALUR)
+
+rebuild-reveal : \
+	clean-reveal \
+	$(REVEALSIM) \
+	$(REVEALNIG) \
+	$(REVEALUR)
+
+handout : \
+	$(HANDOUTPDF) \
+	$(HANDOUTODT)
+
+rebuild-handout : \
+	clean-handout \
+	$(HANDOUTPDF) \
+	$(HANDOUTODT)
 
 #tar: clean-tar $(TAR)
 
@@ -270,7 +327,7 @@ $(O_DIR)/%.ur.reveal.vortrag.htm: %.ur.md
 	$< -o $@
 	@echo '* Reveal (reveal) erstellt.'
 
-$(O_DIR)/%.handout.vortrag.pdf: %.ur.md
+$(O_DIR)/%.handout.vortrag.tex: %.ur.md
 	@pandoc \
 	-V mainfont:'Frutiger Next LT W1G' -V sansfont:'Frutiger Next LT W1G' \
 	-V papersize:a4 -V lang=ngerman -V mainlang=german \
@@ -285,10 +342,16 @@ $(O_DIR)/%.handout.vortrag.pdf: %.ur.md
 	-V include-before='\setlength{\TPHorizModule}{1cm}' \
 	--latex-engine=xelatex --no-tex-ligatures --toc \
 	--template=Template/TEX-PDF/tex-pdf-template.tex \
-	--biblio Quellen/Quellen.bib --csl $(CSL) \
+	--biblio Quellen/Quellen.bib --csl $(CSL) --biblatex \
 	-s \
 	$< -o $@
-	@echo '* Handout (pdf) erstellt.'
+	@echo '* Handout-TEX/PDF UR.'
+	xelatex $(QUIET) $(TEX_O) $@
+	biber $(basename $@) 
+	xelatex $(QUIET) $(TEX_O) $@ 
+	xelatex $(QUIET) $(TEX_O) $@ 
+	@-rm $(basename $@).aux $(basename $@).bbl $(basename $@).bcf $(basename $@).blg $(basename $@).log $(basename $@).nav $(basename $@).out $(basename $@).run.xml $(basename $@).snm $(basename $@).toc $(basename $@).vrb
+	@echo '* Handout-TEX/PDF UR; aux files removed.'
 
 # Handout evtl. auch noch erstellen als Tufte-Style-Handout
 # $(O_DIR)/%.handout.tufte.vortrag.pdf: %.ur.md
@@ -302,20 +365,47 @@ $(O_DIR)/%.handout.vortrag.odt: %.ur.md
 
 	
 clean-handout : ;
-	@-rm $(HANDOUTPDF) $(HANDOUTODT)
+	@-rm \
+	$(HANDOUTPDF) \
+	$(HANDOUTODT)
 	@echo '* Handout-Dateien gelöscht.'
 
 clean-beamer : ;
-	@-rm $(BEAM1610) $(BEAM1610UR) $(BEAM169) $(BEAM169UR) $(BEAM149) $(BEAM149UR) $(BEAM54) $(BEAM54UR) $(BEAM43) $(BEAM43UR) $(BEAM32) $(BEAM32UR)
+	@-rm \
+	$(BEAM1610) \
+	$(BEAM1610UR) \
+	$(BEAM169) \
+	$(BEAM169UR) \
+	$(BEAM149) \
+	$(BEAM149UR) \
+	$(BEAM54) \
+	$(BEAM54UR) \
+	$(BEAM43) \
+	$(BEAM43UR) \
+	$(BEAM32) \
+	$(BEAM32UR)
 	@echo '* Beamer-Dateien gelöscht.'
 	
 clean-reveal : ;
-	@-rm $(REVEALSIM) $(REVEALNIG) $(REVEALUR)
+	@-rm \
+	$(REVEALSIM) \
+	$(REVEALNIG) \
+	$(REVEALUR)
 	@echo '* Reveal-Dateien gelöscht.'
 	
 clean-all : ;
-	@-rm $(BEAM1610) $(BEAM169) $(BEAM149) $(BEAM54) $(BEAM43) $(BEAM32) $(REVEALSIM) $(REVEALNIG) $(HANDOUTPDF) $(HANDOUTODT)
+	@-rm \
+	$(BEAM1610) \
+	$(BEAM169) \
+	$(BEAM149) \
+	$(BEAM54) \
+	$(BEAM43) \
+	$(BEAM32) \
+	$(REVEALSIM) \
+	$(REVEALNIG) \
+	$(REVEALUR) \
+	$(HANDOUTPDF) \
+	$(HANDOUTODT)
 	@echo '* alle Output-Dateien gelöscht.'
 	
 rebuild-all : clean-all all
-
