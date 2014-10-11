@@ -293,7 +293,7 @@ $(O_DIR)/%.simple.reveal.vortrag.htm: %.ur.md
 	--biblio Quellen/Quellen.bib \
 	--csl $(CSL) \
 	-f markdown \
-	-t revealjs	\
+	-t revealjs \
 	$< -o $@
 	@echo '* Reveal (simple) erstellt.'
 
@@ -308,9 +308,9 @@ $(O_DIR)/%.night.reveal.vortrag.htm: %.ur.md
 	--biblio Quellen/Quellen.bib \
 	--csl $(CSL) \
 	-f markdown \
-	-t revealjs	\
+	-t revealjs \
 	$< -o $@
-	@echo '* Reveal (reveal) erstellt.'
+	@echo '* Reveal (night) erstellt.'
 
 $(O_DIR)/%.ur.reveal.vortrag.htm: %.ur.md
 	@pandoc \
@@ -318,14 +318,15 @@ $(O_DIR)/%.ur.reveal.vortrag.htm: %.ur.md
 	-V theme=uni \
 	-V transition=fade \
 	-V revealjs-url=../Template/reveal.js \
+	-B Template/reveal.js/ur-svg-farben-template.txt \
 	-s \
 	-S \
 	--biblio Quellen/Quellen.bib \
 	--csl $(CSL) \
 	-f markdown \
-	-t revealjs	\
+	-t revealjs \
 	$< -o $@
-	@echo '* Reveal (reveal) erstellt.'
+	@echo '* Reveal (uni) erstellt.'
 
 $(O_DIR)/%.handout.vortrag.tex: %.ur.md
 	@pandoc \
