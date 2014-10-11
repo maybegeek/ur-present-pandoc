@@ -1,0 +1,124 @@
+\setbeamersize{text margin left = .131\paperwidth}
+\setbeamersize{text margin right = .131\paperwidth}
+
+\definecolor{Neutralgrau}{RGB}{142,142,141}
+\definecolor{fakultaet}{RGB}{3,35,82}
+\setbeamercolor*{palette primary}{use=structure,fg=white,bg=fakultaet!85}
+\setbeamercolor{structure}{fg=white} % fg=fakultaet % not good for light colours 
+\setbeamercolor*{palette secondary}{use=structure,fg=white,bg=structure.fg!80!black}
+\setbeamercolor*{palette tertiary}{use=structure,fg=white,bg=structure.fg!50!black}
+\setbeamercolor*{palette quaternary}{fg=white,bg=Neutralgrau}
+\setbeamercolor*{sidebar}{use=structure,bg=structure.fg}
+\setbeamercolor*{palette sidebar primary}{use=structure,fg=structure.fg!10}
+\setbeamercolor*{palette sidebar secondary}{fg=white}
+\setbeamercolor*{palette sidebar tertiary}{use=structure,fg=structure.fg!50}
+\setbeamercolor*{palette sidebar quaternary}{fg=white}
+% UR Corporate design (maintitle=white,subtitle=white)
+\setbeamercolor*{title}{bg=}
+\setbeamercolor*{title}{fg=white}
+\setbeamercolor*{subtitle}{fg=white}
+\setbeamercolor*{author}{fg=white}
+\setbeamercolor*{institute}{fg=white}
+\setbeamercolor*{date}{fg=white}
+\setbeamercolor*{separation line}{Neutralgrau}
+\setbeamercolor*{fine separation line}{Neutralgrau}
+\setbeamercolor{page number in head/foot}{bg=Neutralgrau}
+\setbeamercolor{page number in head/foot}{fg=white}
+\setbeamercolor{title in head/foot}{bg=Neutralgrau}
+\setbeamercolor{title in head/foot}{fg=white}
+
+\setbeamercolor{item}{fg=black!85}
+\setbeamercolor{normal text}{fg=black!85}
+\setbeamercolor{author in head/foot}{bg=fakultaet!85}
+\setbeamercolor{page number in head/foot}{bg=fakultaet!85}
+\setbeamercolor{title in head/foot}{bg=fakultaet!85}
+
+
+\usepackage{pifont}
+\defbeamertemplate{itemize item}{custom}{\tiny\ding{108}}
+\setbeamertemplate{itemize item}[custom]
+\setbeamerfont*{author in head/foot}{series=\sffamily}
+\setbeamerfont{title}{size=\LARGE,series=\bfseries}
+
+
+
+\setbeamertemplate{footline}{%
+\begin{beamercolorbox}[ht=3.2ex,wd=\paperwidth]{footline}%
+\begin{minipage}[c][][c]{.47\paperwidth}%
+  \leavevmode \vspace{1ex}\hspace{1ex}\insertshortauthor\,\,|\,\,\insertshortinstitute 
+\end{minipage}%
+\hfill%
+\begin{minipage}[c][][c]{.04\paperwidth}%
+  \insertframenumber\,/\,\inserttotalframenumber\vspace{1ex}
+\end{minipage}%
+\hfill%
+\begin{minipage}[c][][c]{.47\paperwidth}%
+  \hfill \insertshorttitle\hspace{1ex}\vspace{1ex}
+\end{minipage}%
+\end{beamercolorbox}%
+}
+
+
+
+
+%%\insertshortauthor\,\,\,|\,\,\,\insertshortinstitute \hfill \insertframenumber\,/\,\inserttotalframenumber \hfill \insertshorttitle
+
+%    \begin{minipage}[c]{.6\hsize}\centering%
+%      \insertshortauthor \insertshortinstitute
+%    \end{minipage}
+%    \hfill
+%    \begin{minipage}[c]{.1\hsize}\centering%
+%      \insertframenumber\,/\,\inserttotalframenumber
+%    \end{minipage}
+%    \hfill
+%    \begin{minipage}[c]{.2\hsize}\centering%
+%      \insertshorttitle
+%    \end{minipage}
+
+
+%  \begin{beamercolorbox}[wd=.47\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+%    \usebeamerfont{author in head/foot}\insertshortauthor \,\,\,\,|\,\, \insertshortinstitute
+%  \end{beamercolorbox}%
+%  \begin{beamercolorbox}[wd=.06\paperwidth,ht=2.25ex,dp=1ex,center]{page number in head/foot}%
+%    \usebeamerfont{page number in head/foot}\insertframenumber\,/\,\inserttotalframenumber
+%  \end{beamercolorbox}%
+%  \begin{beamercolorbox}[wd=.47\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+%    \usebeamerfont{title in head/foot}\insertshorttitle
+%  \end{beamercolorbox}%
+
+
+%% Turning off the navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+%% This puts author and title in the footer
+\defbeamertemplate{footline}{infolines theme}
+%% This puts the toc in the header of the frame
+\useoutertheme[subsection=true,footline=authorinstitutetitle]{miniframes}
+\setbeamertemplate{headline}{} % If you don't want a toc comment this line
+
+\setbeamercolor{footline}{bg=fakultaet!85,fg=white}
+
+
+%% Definitions of the logos (with and without text)
+\pgfdeclareimage[width=8mm]{logo}{gfx/LOGO_UR_CP}
+\pgfdeclareimage[width=.39\paperwidth]{logo:text}{gfx/URLogoGrauText}
+
+%% This puts the UR logo in the title bar
+\defbeamertemplate*{frametitle}{urlogo:frametitle}{%
+\nointerlineskip%
+% Single coloured stripe with the presentation title
+\begin{beamercolorbox}[wd=\paperwidth]{frametitle}
+\begin{minipage}[c]{.12\paperwidth}
+\vspace{3.2mm}\hspace{3mm}\pgfuseimage{logo}\vspace{5.2mm}
+\end{minipage}
+\begin{minipage}[c]{.70\paperwidth}
+{\setstretch{0.2}\usebeamerfont{frametitle}\LARGE\insertframetitle}
+\end{minipage}
+\end{beamercolorbox}
+}
+\setbeamertemplate{frametitle}[urlogo:frametitle]
+%% Left aligned title text box, later flushed with the coloured stripe
+\setbeamertemplate{title page}[default][left]
+
+%% Make the date the same size as institute ie scriptsize
+\setbeamerfont{date}{size=\scriptsize}
