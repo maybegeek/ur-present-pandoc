@@ -2,11 +2,11 @@ O_DIR    := Output
 TEX_O    := --output-directory=$(O_DIR)
 CSL      := Template/CSL/ur-magnum-opus-zotero.csl
 URMD     := $(wildcard *.ur.md)
-B_OPT    := --standalone --latex-engine=xelatex --no-tex-ligatures --number-sections --biblio Quellen/Quellen.bib -f markdown -t beamer --biblatex
+B_OPT    := --standalone --latex-engine=xelatex --no-tex-ligatures --number-sections -V header-includes='\setbeamertemplate{bibliography item}{}' --biblio Quellen/Quellen.bib -f markdown -t beamer --biblatex
 B_TMPL   := Template/BEAMER/beamer-template.tex
 B_TMPLUR := Template/BEAMER/ur-beamer-template.tex
-#QUIET    := -interaction=batchmode
-QUIET    :=
+QUIET    := -interaction=batchmode
+#QUIET    :=
 
 BEAM1610   := $(patsubst %.ur.md,$(O_DIR)/%.16zu10.beamer.vortrag.tex,$(URMD))
 BEAM1610UR := $(patsubst %.ur.md,$(O_DIR)/%.16zu10.beamer.vortrag.ur.tex,$(URMD))
@@ -28,7 +28,7 @@ HANDOUTPDF    := $(patsubst %.ur.md,$(O_DIR)/%.handout.vortrag.tex,$(URMD))
 HANDOUTODT    := $(patsubst %.ur.md,$(O_DIR)/%.handout.vortrag.odt,$(URMD))
 
 #TAR=$(SRC:.md=.paket.tar.gz)
-#all:  $(BEAM1610) $(BEAM169) $(BEAM149) $(BEAM54) $(BEAM43) $(BEAM32) $(BEAMTEX) $(HANDOUTPDF) $(HANDOUTODT) $(REVEALSIM) $(REVEALNIG) $(TAR)
+
 
 all : \
 	$(BEAM1610) \
@@ -319,6 +319,7 @@ $(O_DIR)/%.ur.reveal.vortrag.htm: %.ur.md
 	-V transition=fade \
 	-V revealjs-url=../Template/reveal.js \
 	-B Template/reveal.js/ur-svg-farben-template.txt \
+	--template=Template/reveal.js/ur-revealjs-template.htm \
 	-s \
 	-S \
 	--biblio Quellen/Quellen.bib \
@@ -354,9 +355,6 @@ $(O_DIR)/%.handout.vortrag.tex: %.ur.md
 	@-rm $(basename $@).aux $(basename $@).bbl $(basename $@).bcf $(basename $@).blg $(basename $@).log $(basename $@).nav $(basename $@).out $(basename $@).run.xml $(basename $@).snm $(basename $@).toc $(basename $@).vrb
 	@echo '* Handout-TEX/PDF UR; aux files removed.'
 
-# Handout evtl. auch noch erstellen als Tufte-Style-Handout
-# $(O_DIR)/%.handout.tufte.vortrag.pdf: %.ur.md
-
 $(O_DIR)/%.handout.vortrag.odt: %.ur.md
 	@pandoc -V lang=ngerman -V mainlang=german \
 	--toc --reference-odt=Template/ODT/reference-handout.odt \
@@ -364,7 +362,7 @@ $(O_DIR)/%.handout.vortrag.odt: %.ur.md
 	-s $< -o $@
 	@echo '* Handout (odt) erstellt.'
 
-	
+
 clean-handout : ;
 	@-rm \
 	$(HANDOUTPDF) \

@@ -1,3 +1,4 @@
+@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,700,700italic&subset=latin,latin-ext');
 /*@import url(https://fonts.googleapis.com/css?family=News+Cycle:400,700);*/
 /*@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);*/
 /**
@@ -15,9 +16,9 @@ body {
   background-color: white; }
 
 .reveal {
-/*  font-family: "Lato", sans-serif; */
-  font-family: sans-serif;
-  font-size: 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight:400;
+  font-size: 30px;
   font-weight: normal;
   letter-spacing: -0.02em;
   color: black; }
@@ -38,14 +39,32 @@ body {
 .reveal h6 {
   margin: 0 0 20px 0;
   color: black;
-/*  font-family: "News Cycle", Impact, sans-serif; */
-  font-family: sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  font-weight:400;
   line-height: 0.9em;
   letter-spacing: 0.02em;
   text-transform: none;
   text-shadow: none; }
 
-.reveal h1 {}
+.reveal h1 {
+  font-size:150%;
+  line-height:100%;
+  font-family: 'Open Sans', sans-serif;
+  font-weight:700;
+  margin-bottom:1em;
+}
+
+.reveal h1.subtitle {
+  font-style:italic;
+}
+
+.reveal h2.author {
+  font-size:110%;
+}
+
+.reveal h3.date {
+  font-size:110%;
+}
 
 /*********************************************
  * LINKS
@@ -144,5 +163,20 @@ body {
 section.present,
 section.past,
 section.future {
-  top:-16em !important;
+  top:-40% !important;
+}
+
+.reveal ul li {
+  margin-bottom:2% !important;
+}
+
+.reveal blockquote {
+  width:90%;
+  text-align:left;
+  padding:10px 15px;
+}
+
+.reveal h1 {
+  -moz-hyphens:none;
+  hyphens:none;
 }

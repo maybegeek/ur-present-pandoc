@@ -34,6 +34,34 @@ Hier könnte man nun noch eine Referenz auf Tuftes wichtige Werke bzgl. obiger A
 
 </div>
 
+# alles in runden Klammern
+
+* [@dotzler:2008] \
+  ``[@dotzler:2008]``
+* [@dotzler:2008, 9-12] \
+  ``[@dotzler:2008, 9-12]``
+* [@dotzler:2008, 9-12; außerdem @dotzler:1995, 7-13] \
+  ``[@dotzler:2008, 9-12; außerdem @dotzler:1995, 7-13]``
+
+# Unterdrückung des Autors im Klammernausdruck.
+
+* [-@dotzler:2008] \
+  ``[-@dotzler:2008]``
+* [-@dotzler:2008, 9-12] \
+  ``[-@dotzler:2008, 9-12]``
+* [-@dotzler:2008, 9-12; außerdem -@dotzler:1995, 7-13] \
+  ``[-@dotzler:2008, 9-12; außerdem -@dotzler:1995, 7-13]``
+
+# Autor vor die Klammern ziehen
+
+* @dotzler:2008 \
+  ``@dotzler:2008``
+* @dotzler:2008 [9-12] \
+  ``@dotzler:2008 [9-12]``
+* @dotzler:2008 [9-12] außerdem @dotzler:1995 [7-13] \
+  ``@dotzler:2008 [9-12]; außerdem @dotzler:1995 [7-13]``
+
+
 # weitere Folie
 
 > Auch hier gibt es wieder etwas Text. Auch hier gibt es wieder etwas Text. Auch hier gibt es wieder etwas Text. Wohl ein langes Zitat.
