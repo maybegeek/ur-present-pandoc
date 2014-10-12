@@ -1,0 +1,464 @@
+\documentclass[ignorenonframetext,]{beamer}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{:}
+\setbeamercolor{caption name}{fg=normal text.fg}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\usepackage{lmodern}
+\ifxetex
+  \usepackage{fontspec,xltxtra,xunicode}
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+  
+  \setmainfont[%
+%  RawFeature=-calt,%disable Q.long + contextual alternatives
+  Path=./Template/Fonts/EBGaramond/otf/,%
+  UprightFont=EBGaramond12-Regular.otf,%
+  BoldFont=EBGaramond12-Regular.otf,%
+  BoldFeatures={FakeBold=1.8},%
+  ItalicFont=EBGaramond12-Italic.otf,%
+  BoldItalicFont=EBGaramond12-Italic.otf,%
+  BoldItalicFeatures={FakeBold=1.8},%
+  SmallCapsFont=EBGaramondSC12-Regular.otf%
+]{EBGaramond}
+
+\setsansfont[%
+%  RawFeature=-calt,%disable Q.long + contextual alternatives 
+  Path=./Template/Fonts/EBGaramond/otf/,%
+  UprightFont=EBGaramond12-Regular.otf,%
+  BoldFont=EBGaramond12-Regular.otf,%
+  BoldFeatures={FakeBold=1.8},%
+  ItalicFont=EBGaramond12-Italic.otf,%
+  BoldItalicFont=EBGaramond12-Italic.otf,%
+  BoldItalicFeatures={FakeBold=1.8},%
+  SmallCapsFont=EBGaramondSC12-Regular.otf%
+]{EBGaramond}
+
+%\setsansfont[%
+%  Path=Template/Fonts/FiraSans/,%
+%  UprightFont=*-Regular,%
+%  ItalicFont=*-Italic,%
+%  BoldFont=*-Bold,%
+%  BoldItalicFont=*-BoldItalic%
+%]{FiraSans}
+
+\setmonofont[%
+  Path=Template/Fonts/FiraMono/,%
+  UprightFont=*-Regular,%
+  BoldFont=*-Bold,%
+  Mapping=tex-ansi,
+]{FiraMono}
+
+%\setmonofont[Mapping=tex-ansi]{Droid Sans Mono}
+
+  
+\else
+  \ifluatex
+    \usepackage{fontspec}
+    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+    \newcommand{\euro}{€}
+  \else
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+      \fi
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+
+
+\usepackage[bibstyle=%
+fiwi2,%
+citestyle=fiwi2,%
+dashed=false,%
+backend=biber,%
+origyearwithyear=true,%
+publisher=true,%
+labeldate=true,%
+pages=true,%
+series=true,%
+ibidtracker=false,%
+filmruntime=true,%
+citefilm=full%
+]{biblatex}
+
+\bibliography{Quellen/Quellen}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\NormalTok}[1]{{#1}}
+
+% Comment these out if you don't want a slide with just the
+% part/section/subsection/subsubsection title:
+\AtBeginPart{
+  \let\insertpartnumber\relax
+  \let\partname\relax
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \let\insertsectionnumber\relax
+  \let\sectionname\relax
+  \frame{\sectionpage}
+}
+\AtBeginSubsection{
+  \let\insertsubsectionnumber\relax
+  \let\subsectionname\relax
+  \frame{\subsectionpage}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+
+\usepackage[shorthands=off,ngerman]{babel}
+\usepackage{polyglossia}
+\setdefaultlanguage[spelling=new]{german}
+%\usepackage[autostyle,german=guillemets]{csquotes}
+\usepackage[autostyle,german=quotes]{csquotes}
+\MakeOuterQuote{"}
+
+\setbeamertemplate{bibliography item}{}
+
+\title{Digitale Arbeitstechniken im Studium}
+\subtitle{gute wissenschaftliche Praxis}
+\author{Greiner \& Pfeiffer}
+\date{zigster Oktober}
+
+
+\renewbibmacro*{filmtitle}
+{\iffieldundef{maintitle}
+{\printtext{\printfield[film]{title}}}
+{\printfield[film]{maintitle}\newunit}%
+\iffieldundef{subtitle}%
+{}%
+{\setunit{}%
+\printtext{\addspace\printfield{subtitle}}}%
+\iffieldundef{volume}%
+{}%
+{\printfield[season]{volume}}%
+\iffieldundef{number}%
+{}%
+{\addcomma\addspace\printfield[episode]{number}}%
+\iffieldundef{maintitle}%
+{}%
+{\addcolon\addspace\printfield[film]{title}}%
+\addspace\mkbibparens{\printfield{year}\iffieldundef{origyear}{}{\printtext{/}\printorigdate}}%
+\ifpunctmark{!}{\unspace .\newunit}{\addcolon}}%
+%
+%
+\DeclareBibliographyDriver{movie}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \newblock%
+  \usebibmacro{filmtitle}%
+  \newunit\newblock%
+  \usebibmacro{movie:creators}%
+  \iffieldundef{entrysubtype}
+	{}%
+	{\iffieldequalstr{entrysubtype}{serial}%
+		{\usebibmacro{movie:serials}}%
+		{\iffieldequalstr{entrysubtype}{tv}%
+			{\usebibmacro{movie:tv}}%
+			{\usebibmacro{movie:regular}}}}%
+  \iffieldundef{pagetotal}
+  	{}
+  	{%
+ 	\iftoggle{filmruntime}%
+ 		{\adddot\addspace\printfield{pagetotal}}%
+ 		{}}
+ \iffieldundef{note}%
+ 	{}
+ 	{\printfield{note}}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isan}}
+    {}%
+ \newunit\newblock
+%\usebibmacro{doi+eprint+url}
+ \usebibmacro{pageref}
+ \iflistundef{location}%
+ {}%
+ {\printlist{location}\printtext{: }}
+ \iffieldundef{howpublished}%
+ {}%
+ {\printfield{howpublished}}
+ \newunit\newblock
+ \usebibmacro{url+urldate}
+\usebibmacro{finentry}}
+%
+%
+\DeclareBibliographyDriver{book}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \iftoggle{dontprintorig}
+  {}
+  {\ifnameundef{author}%
+  {\ifnameundef{editor}%
+  {}
+  {\usebibmacro{editor}\addspace}}%
+  {\usebibmacro{author/translator+others}}%
+  \usebibmacro{date+extrayear}}%
+  \newblock
+  \usebibmacro{mtitle+mstitle+vol+part+title+stitle}%
+  \newunit\newblock
+  \ifnameundef{author}
+  	{}
+	{\usebibmacro{byeditor+others}}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit
+  \printfield{volumes}%
+  \newunit\newblock
+  \usebibmacro{ser+num}%
+  \newunit\newblock
+  \printfield{edition}%
+  \newunit\newblock%
+  \usebibmacro{publ+loc+origyear}%
+  \usebibmacro{chap+pag}%
+  \newblock%\newunit
+ \iffieldundef{howpublished}%
+ {}%
+ {\printfield{howpublished}\adddot}
+  \usebibmacro{doi+eprint+url}%
+  \addspace\usebibmacro{related}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isbn}}
+    {}%
+  \newblock
+  \usebibmacro{addendum+pubstate}%
+  \newunit\newblock
+  \usebibmacro{pageref}%
+\finentry}
+%
+%
+\renewbibmacro*{director:first-last}[4]{%
+  \usebibmacro{name:delim}{#1#2#3}%
+  \usebibmacro{name:hook}{#1#2#3}%
+  \ifblank{#1}{}{\mkbibnamelast{#1}\isdot\addlowpenspace\addcomma\addspace}%
+  \ifblank{#3}{}{%
+    \mkbibnameprefix{#3}\isdot
+    \ifpunctmark{'}
+      {}
+      {\ifuseprefix{\addhighpenspace}{\addlowpenspace}}}%
+  \mkbibnamefirst{#2}\isdot
+  \ifblank{#4}{}{\addlowpenspace\mkbibnameaffix{#4}\isdot}}
+%
+%
+\renewbibmacro*{cite}{%
+  \global\boolfalse{cbx:loccit}%
+  \iffieldundef{shorthand}
+    {\ifthenelse{\ifciteibid\AND\NOT\iffirstonpage}
+       {\usebibmacro{cite:ibid}}
+       {\ifthenelse{\ifnameundef{labelname}\OR\iffieldundef{labelyear}}
+          %{\usebibmacro{cite:label}%
+          {\printtext[bibhyperref]{\iffieldundef{shorttitle}{\printfield[film]{title}}{\printfield[film]{shorttitle}}}%
+           \setunit{\addspace}}
+          {\printnames{labelname}%
+           \setunit{\nameyeardelim}}%
+        \printfield{year}\iffieldundef{origyear}{}{\printtext{/}\printorigdate}}}%
+    {\usebibmacro{cite:shorthand}}}    
+%
+%
+\renewbibmacro*{textcite}{%
+  \global\boolfalse{cbx:loccit}%
+  \iffieldundef{type}%
+  {%
+  \ifnameundef{labelname}
+    {\iffieldundef{shorthand}
+       {\usebibmacro{cite:label}%
+        \setunit{%
+          \global\booltrue{cbx:parens}%
+          \addspace\bibopenparen}%
+        \ifnumequal{\value{citecount}}{1}
+          {\usebibmacro{prenote}}
+          {}%
+        \usebibmacro{cite:labelyear+extrayear}}
+       {\usebibmacro{cite:shorthand}}}
+    {\printnames{labelname}%
+     \setunit{%
+       \global\booltrue{cbx:parens}%
+       \addspace\bibopenparen}%
+     \ifnumequal{\value{citecount}}{1}
+       {\usebibmacro{prenote}}
+       {}%
+     \iffieldundef{shorthand}
+       {\ifthenelse{\ifciteibid\AND\NOT\iffirstonpage}
+          {\usebibmacro{cite:ibid}}
+          {\iffieldundef{labelyear}
+             {\usebibmacro{cite:label}}
+             {\usebibmacro{cite:labelyear+extrayear}}}}
+       {\usebibmacro{cite:shorthand}}}}%
+       {\printtext[bibhyperref]{\iffieldundef{shorttitle}{\printfield[film]{title}}{\printfield[film]{shorttitle}}\addspace\mkbibparens{\printfield{year}}}}%
+}
+%
+%
+\renewbibmacro*{cite:label}{%
+  \ifnameundef{labelname}
+    {\BibliographyWarning{Missing author/editor+year or label}}
+    {%
+    \iffieldundef{type}{%
+    \printtext[bibhyperref]{\printnames{labelname}}}%
+    {\printfield{year}\iffieldundef{origyear}{}{\printtext{/}\printorigdate}}%
+    }}
+%
+%
+\renewcommand{\mkbibnamelast}[1]{\textsc{#1}}
+
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{Überschrift erster Ordnung}
+
+\emph{Markdown} formatierter Text. Hier kommt noch weiterer Text hin.
+
+\end{frame}
+
+\begin{frame}{nächste Folie}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Hier gibt es ein paar
+\item
+  Listenpunkte, welche ja
+\item
+  üblicherweise recht gern
+\item
+  verwendet werden.
+\item
+  \emph{Tufte} mag das nicht
+\item
+  ebensowenig \textcite[22-26]{dotzler:2008}
+\end{itemize}
+
+\note{\textbf{Dieser Inhalt} erscheint nur in den "Speaker-Notes", bzw.
+im Handout-Ausdruck.
+
+Hier könnte man nun noch eine Referenz auf Tuftes wichtige Werke bzgl.
+obiger Aussage machen. Oder auch nicht. Hier könnte man nun noch eine
+Referenz auf Tuftes wichtige Werke bzgl. obiger Aussage machen. Oder
+auch nicht. Hier könnte man nun noch eine Referenz auf Tuftes wichtige
+Werke bzgl. obiger Aussage machen. Oder auch nicht.}
+
+\end{frame}
+
+\begin{frame}{alles in runden Klammern}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \autocite{dotzler:2008}\\ \texttt{{[}@dotzler:2008{]}}
+\item
+  \autocite[9-12]{dotzler:2008}\\ \texttt{{[}@dotzler:2008, 9-12{]}}
+\item
+  \autocites[9-12]{dotzler:2008}[außerdem][7-13]{dotzler:1995}\\
+  \texttt{{[}@dotzler:2008, 9-12; außerdem @dotzler:1995, 7-13{]}}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Unterdrückung des Autors im Klammernausdruck.}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \autocite*{dotzler:2008}\\ \texttt{{[}-@dotzler:2008{]}}
+\item
+  \autocite*[9-12]{dotzler:2008}\\ \texttt{{[}-@dotzler:2008, 9-12{]}}
+\item
+  \autocites[9-12]{dotzler:2008}[außerdem][7-13]{dotzler:1995}\\
+  \texttt{{[}-@dotzler:2008, 9-12; außerdem -@dotzler:1995, 7-13{]}}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Autor vor die Klammern ziehen}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textcite{dotzler:2008}\\ \texttt{@dotzler:2008}
+\item
+  \textcite[9-12]{dotzler:2008}\\ \texttt{@dotzler:2008 {[}9-12{]}}
+\item
+  \textcite[9-12]{dotzler:2008} außerdem \textcite[7-13]{dotzler:1995}\\
+  \texttt{@dotzler:2008 {[}9-12{]}; außerdem @dotzler:1995 {[}7-13{]}}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{weitere Folie}
+
+\begin{quote}
+Auch hier gibt es wieder etwas Text. Auch hier gibt es wieder etwas
+Text. Auch hier gibt es wieder etwas Text. Wohl ein langes Zitat.
+\end{quote}
+
+\end{frame}
+
+\begin{frame}{diese Folie}
+
+Also diese Folie beinhaltet nun ein paar Auszeichnungen, für eine
+\emph{leichte Hervorhebung} und für eine \textbf{starke Hervorhebung}.
+
+Ebenfalls wichtig ist die Möglichkeit der Verlinkung. Als Beispiel auf
+die \href{http://www.ur.de}{Website der Universität Regensburg}.
+
+\end{frame}
+
+\begin{frame}[fragile]{noch eine letzte Folie}
+
+Quelltext-Beispiel
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{<!DOCTYPE }\NormalTok{html}\DataTypeTok{>}
+\KeywordTok{<html>}
+    \KeywordTok{<head>}
+        \KeywordTok{<meta}\OtherTok{ charset=}\StringTok{"utf-8"}\KeywordTok{>}
+        \KeywordTok{<title>}\NormalTok{SITA}\KeywordTok{</title>}
+    \KeywordTok{</head>}
+    \KeywordTok{<body>}
+        \KeywordTok{<h1>}\NormalTok{Hallo SITA}\KeywordTok{</h1>}
+    \KeywordTok{</body>}
+\KeywordTok{</html>}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}{last but not least}
+
+Vielen Dank für Ihre Aufmerksamkeit.
+
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Quellen}
+
+\printbibliography[heading=none]
+
+\end{frame}
+
+
+\end{document}
