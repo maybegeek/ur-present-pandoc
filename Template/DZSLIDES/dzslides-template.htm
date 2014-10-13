@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+$for(author-meta)$
+  <meta name="author" content="$author-meta$" />
+$endfor$
+$if(date-meta)$
+  <meta name="dcterms.date" content="$date-meta$" />
+$endif$
+  <title>$if(title-prefix)$$title-prefix$ - $endif$$pagetitle$</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!-- testing webfont for use with self-contained -->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic' rel='stylesheet' type='text/css'>
+$if(highlighting-css)$
+  <style type="text/css">
+$highlighting-css$
+  </style>
+$endif$
+$if(css)$
+$for(css)$
+  <link rel="stylesheet" href="$css$" $if(html5)$$else$type="text/css" $endif$/>
+$endfor$
+$else$
+<style>
+
+  /* testing webfont for use with self-contained*/
+  * {font-family: "Open Sans", sans-serif; weight: 400; }
+  html { background-color: gray; }
+  body { background-color: white;}
+  /* A section is a slide. It's size is 800x600, and this will never change */
+  section {
+      font-family: Arial, serif;
+      font-size: 26px;
+    }
+  address, blockquote, dl, fieldset, form, h1, h2, h3, h4, h5, h6, hr, ol, p, pre, table, ul, dl { padding: 10px 20px 10px 20px; }
+  h1, h2, h3 {
+    text-align: left;
+    margin: 10px 10px 20px 10px;
+    line-height:115%;
+  }
+  p { margin:10px 10px 20px 10px; }
+  ul, ol {
+    margin: 10px 10px 10px 50px;
+  }
+  ul li,
+  ol li {
+    margin-bottom:0.2em;
+  }
+  section.titleslide h1 { margin-top: 200px; }
+  /*h1.title { margin-top: 150px; }*/
+  h1 { font-size: 110%; }
+  h1.title { font-size: 150%; }
+  h1.subtitle { font-size: 120%; }
+  h2 { font-size: 120%; }
+  h3 { font-size: 100%; }
+  q { quotes: "“" "”" "‘" "’"; }
+  blockquote { font-style: italic }
+  /* Figures are displayed full-page, with the caption on
+     top of the image/video */
+  figure {
+    background-color: black;
+  }
+  figcaption {
+    margin: 70px;
+  }
+  video {
+    display: block;
+    margin: 0 auto;
+  }
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 40px;
+    text-align: right;
+    background-color: #F3F4F8;
+    border-top: 1px solid #CCC;
+  }
+  #progress-bar {
+    background-color:red;
+    height:4px;
+  }
+  
+  /* blacken */
+
+  body.loaded .pause-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #808080;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 100;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+  }
+  body.loaded.paused .pause-overlay {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  /* Transition effect */
+  /* Feel free to change the transition effect for original
+     animations. See here:
+     https://developer.mozilla.org/en/CSS/CSS_transitions
+     How to use CSS3 Transitions: */
+  section {
+      -moz-transition: left 400ms linear 0s;
+      -webkit-transition: left 400ms linear 0s;
+      -ms-transition: left 400ms linear 0s;
+      transition: left 400ms linear 0s;
+  }
+
+  /* Before */
+  section { left: -150%; }
+  /* Now */
+  section[aria-selected] { left: 0; }
+  /* After */
+  section[aria-selected] ~ section { left: +150%; }
+
+  /* Incremental elements */
+
+  /* By default, visible */
+  .incremental > * { opacity: 1; }
+
+  /* The current item */
+  .incremental > *[aria-selected] { color: red; opacity: 1; }
+
+  /* The items to-be-selected */
+  .incremental > *[aria-selected] ~ * { opacity: 0.2; }
+</style>
+$endif$
+$if(math)$
+  $math$
+$endif$
+$for(header-includes)$
+  $header-includes$
+$endfor$
+</head>
+<body>
+
+<div class="pause-overlay"></div>
+
+<svg viewBox="0 0 880 40"
+     version="1.1"
+     baseProfile="full"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     shape-rendering="crispEdges">
+
+<style type="text/css">
+rect.item {
+  transition: all 0.2s ease;
+  opacity:0.8;
+  stroke-width:0.4px;
+  stroke-opacity:0.4;
+  cursor:pointer;
+}
+
+rect.item:hover {
+  opacity:1.0;
+  stroke-width:0.4px;
+  stroke-opacity:0.4;
+  transform:scale(1,2);
+}
+
+rect#ur_1 { fill:#34535D; stroke:#34535D; } /* Leitung, Organe und Verwaltung */
+rect#ur_2 { fill:#5F002F; stroke:#5F002F; } /* Chancengleichheit und Familie */
+rect#ur_3 { fill:#51541A; stroke:#51541A; } /* Service-Einrichtungen der Verwaltung für Studierende */
+rect#ur_4 { fill:#A4A90C; stroke:#A4A90C; } /* Fakultät für Rechtswissenschaft */
+rect#ur_5 { fill:#8B8600; stroke:#8B8600; } /* Fakultät für Wirtschaftswissenschaften */
+rect#ur_6 { fill:#BD9600; stroke:#BD9600; } /* Fakultät für Katholische Theologie */
+rect#ur_7 { fill:#BD4E00; stroke:#BD4E00; } /* Fakultät für Philosophie, Kunst-, Geschichts- und Gesellschaftswissenschaften */
+rect#ur_8 { fill:#990022; stroke:#990022; } /* Fakultät für Psychologie, Pädagogik und Sportwissenschaft */
+rect#ur_9 { fill:#7D003C; stroke:#7D003C; } /* Fakultät für Sprach-, Literatur- und Kulturwissenschaften */
+rect#ur_10 { fill:#3F9300; stroke:#3F9300; } /* Fakultät für Biologie und Vorklinische Medizin */
+rect#ur_11 { fill:#007C5F; stroke:#007C5F; } /* Fakultät für Mathematik */
+rect#ur_12 { fill:#006E76; stroke:#006E76; } /* Fakultät für Physik */
+rect#ur_13 { fill:#006C8E; stroke:#006C8E; } /* Fakultät für Chemie und Pharmazie */
+rect#ur_14 { fill:#004455; stroke:#004455; } /* Fakultät für Medizin */
+rect#ur_15 { fill:#83525D; stroke:#83525D; } /* Universitätsbibliothek */
+rect#ur_16 { fill:#5B3C41; stroke:#5B3C41; } /* Zentrum für Sprache und Kommunikation */
+rect#ur_17 { fill:#453E59; stroke:#453E59; } /* Europaeum (Ost-West-Zentrum) */
+rect#ur_18 { fill:#3B0041; stroke:#3B0041; } /* Zentrum für Hochschul- und Wissenschaftsdidaktik */
+rect#ur_19 { fill:#866800; stroke:#866800; } /* Regensburger Universitätszentrum für Lehrerbildung */
+rect#ur_20 { fill:#416224; stroke:#416224; } /* Zentrum für Weiterbildung */
+rect#ur_21 { fill:#006062; stroke:#006062; } /* Sportzentrum */
+rect#ur_22 { fill:#032352; stroke:#032352; } /* Rechenzentrum */
+</style>
+
+<g id="farben">
+  <g class="service">
+    <g>
+      <title>Leitung, Organe und Verwaltung</title>
+      <a xlink:href="http://www.uni-regensburg.de/verwaltung/organigramm/">
+      <rect id="ur_1" class="item" height="20" width="40" y="0" x="0"/></a>
+    </g>
+    <g>
+      <title>Chancengleichheit und Familie</title>
+      <a xlink:href="http://www.uni-regensburg.de/chancengleichheit/">
+      <rect id="ur_2" class="item" height="20" width="40" y="0" x="40"/></a>
+    </g>
+    <g>
+      <title>Service-Einrichtungen der Verwaltung für Studierende</title>
+      <a xlink:href="http://www.uni-regensburg.de/studium/studentenkanzlei/">
+      <rect id="ur_3" class="item" height="20" width="40" y="0" x="80"/></a>
+    </g>
+  </g>
+  <g class="fakultaet">
+    <g>
+      <title>Fakultät für Rechtswissenschaft</title>
+      <a xlink:href="http://www.uni-regensburg.de/rechtswissenschaft/fakultaet/">
+      <rect id="ur_4" class="item" height="20" width="40" y="0" x="120"/></a>
+    </g>
+    <g>
+      <title>Fakultät für Wirtschaftswissenschaften</title>
+      <a xlink:href="http://www-wiwi.uni-regensburg.de/Home/.de">
+      <rect id="ur_5" class="item" height="20" width="40" y="0" x="160"/></a>
+    </g>
+    <g>
+      <title>Fakultät für Katholische Theologie</title>
+      <a xlink:href="http://www.uni-regensburg.de/theologie/">
+      <rect id="ur_6" class="item" height="20" width="40" y="0" x="200"/></a>
+    </g>
+    <g>
+      <title>Fakultät für Philosophie, Kunst-, Geschichts- und Gesellschaftswissenschaften</title>
+      <a xlink:href="http://www.uni-regensburg.de/philosophie-kunst-geschichte-gesellschaft/fakultaet/">
+      <rect id="ur_7" class="item" height="20" width="40" y="0" x="240"/></a>
+    </g>
+    <g>
+      <title>Fakultät für Psychologie, Pädagogik und Sportwissenschaft</title>
+      <a xlink:href="http://www.uni-regensburg.de/psychologie-paedagogik-sport/fakultaet/">
+      <rect id="ur_8" class="item" height="20" width="40" y="0" x="280"/></a>
+    </g>
+    <g>
+      <title>Fakultät für Sprach-, Literatur- und Kulturwissenschaften</title>
+      <a xlink:href="http://www.uni-regensburg.de/sprache-literatur-kultur/fakultaet/">
+      <rect id="ur_9" class="item" height="20" width="40" y="0" x="320"/></a>
+    </g>
+    <g>
+      <title>Fakultät für Biologie und Vorklinische Medizin</title>
+      <a xlink:href="http://www.uni-regensburg.de/biologie-vorklinische-medizin/fakultaet/">
+      <rect id="ur_10" class="item" height="20" width="40" y="0" x="360"/></a>
+    </g>
+    <g>
+      <title>Fakultät für Mathematik</title>
+      <a xlink:href="http://www.uni-regensburg.de/mathematik/fakultaet/">
+      <rect id="ur_11" class="item" height="20" width="40" y="0" x="400"/></a>
+    </g>
+    <g>
+      <title>Fakultät für Physik</title>
+      <a xlink:href="http://www.physik.uni-regensburg.de/">
+      <rect id="ur_12" class="item" height="20" width="40" y="0" x="440"/></a>
+    </g>
+    <g>
+      <title>Fakultät für Chemie und Pharmazie</title>
+      <a xlink:href="http://www.uni-regensburg.de/chemie-pharmazie/fakultaet/">
+      <rect id="ur_13" class="item" height="20" width="40" y="0" x="480"/></a>
+    </g>
+    <g>
+      <title>Fakultät für Medizin</title>
+      <a xlink:href="http://www.uni-regensburg.de/medizin/fakultaet/">
+      <rect id="ur_14" class="item" height="20" width="40" y="0" x="520"/></a>
+    </g>
+  </g>
+  <g class="service">
+    <g>
+      <title>Universitätsbibliothek</title>
+      <a xlink:href="http://www.uni-regensburg.de/bibliothek/">
+      <rect id="ur_15" class="item" height="20" width="40" y="0" x="560"/></a>
+    </g>
+  </g>
+  <g class="uebergreifend">
+    <g>
+      <title>Zentrum für Sprache und Kommunikation</title>
+      <a xlink:href="http://www.uni-regensburg.de/zentrum-sprache-kommunikation/leitung/">
+      <rect id="ur_16" class="item" height="20" width="40" y="0" x="600"/></a>
+    </g>
+    <g>
+      <title>Europaeum (Ost-West-Zentrum)</title>
+      <a xlink:href="http://www.uni-regensburg.de/europaeum/europaeum/">
+      <rect id="ur_17" class="item" height="20" width="40" y="0" x="640"/></a>
+    </g>
+    <g>
+      <title>Zentrum für Hochschul- und Wissenschaftsdidaktik</title>
+      <a xlink:href="http://www.uni-regensburg.de/zentrum-hochschul-wissenschaftsdidaktik/">
+      <rect id="ur_18" class="item" height="20" width="40" y="0" x="680"/></a>
+    </g>
+    <g>
+      <title>Regensburger Universitätszentrum für Lehrerbildung</title>
+      <a xlink:href="http://www.uni-regensburg.de/rul/">
+      <rect id="ur_19" class="item" height="20" width="40" y="0" x="720"/></a>
+    </g>
+  </g>
+  <g class="service">
+    <g>
+      <title>Zentrum für Weiterbildung</title>
+      <a xlink:href="http://www.uni-regensburg.de/einrichtungen/">
+      <rect id="ur_20" class="item" height="20" width="40" y="0" x="760"/></a>
+    </g>
+  </g>
+  <g class="uebergreifend">
+    <g>
+      <title>Sportzentrum</title>
+      <a xlink:href="http://www.uni-regensburg.de/sport/">
+      <rect id="ur_21" class="item" height="20" width="40" y="0" x="800"/></a>
+    </g>
+  </g>
+  <g class="service">
+    <g>
+      <title>Rechenzentrum</title>
+      <a xlink:href="http://www.uni-regensburg.de/rechenzentrum/">
+      <rect id="ur_22" class="item" height="20" width="40" y="0" x="840"/></a>
+    </g>
+  </g>
+</g>
+</svg>
+
+
+$if(title)$
+<section class="title">
+  <h1 class="title">$title$</h1>
+$if(subtitle)$
+  <h1 class="subtitle">$subtitle$</h1>
+$endif$
+$for(author)$
+  <h2 class="author">$author$</h2>
+$endfor$
+  <h3 class="date">$date$</h3>
+</section>
+$endif$
+$for(include-before)$
+$include-before$
+$endfor$
+$body$
+$for(include-after)$
+$include-after$
+$endfor$
+$dzslides-core$
+<script>
+	/**
+* Enters the paused mode which fades everything on screen to
+* black.
+*/
+function pause() {
+var wasPaused = dom.wrapper.classList.contains( 'paused' );
+cancelAutoSlide();
+dom.wrapper.classList.add( 'paused' );
+if( wasPaused === false ) {
+dispatchEvent( 'paused' );
+}
+}
+/**
+* Exits from the paused mode.
+*/
+function resume() {
+var wasPaused = dom.wrapper.classList.contains( 'paused' );
+dom.wrapper.classList.remove( 'paused' );
+cueAutoSlide();
+if( wasPaused ) {
+dispatchEvent( 'resumed' );
+}
+}
+/**
+* Toggles the paused mode on and off.
+*/
+function togglePause() {
+if( isPaused() ) {
+resume();
+}
+else {
+pause();
+}
+}
+/**
+* Checks if we are currently in the paused mode.
+*/
+function isPaused() {
+return dom.wrapper.classList.contains( 'paused' );
+}
+</script>
+</body>
+</html>

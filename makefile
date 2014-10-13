@@ -24,6 +24,7 @@ BEAM32UR   := $(patsubst %.ur.md,$(O_DIR)/%.3zu2.beamer.vortrag.ur.tex,$(URMD))
 REVEALSIM     := $(patsubst %.ur.md,$(O_DIR)/%.simple.reveal.vortrag.htm,$(URMD))
 REVEALNIG     := $(patsubst %.ur.md,$(O_DIR)/%.night.reveal.vortrag.htm,$(URMD))
 REVEALUR      := $(patsubst %.ur.md,$(O_DIR)/%.ur.reveal.vortrag.htm,$(URMD))
+DZUR          := $(patsubst %.ur.md,$(O_DIR)/%.ur.dzslides.vortrag.htm,$(URMD))
 HANDOUTPDF    := $(patsubst %.ur.md,$(O_DIR)/%.handout.vortrag.tex,$(URMD))
 HANDOUTODT    := $(patsubst %.ur.md,$(O_DIR)/%.handout.vortrag.odt,$(URMD))
 
@@ -46,6 +47,7 @@ all : \
 	$(REVEALSIM) \
 	$(REVEALNIG) \
 	$(REVEALUR) \
+	$(DZUR) \
 	$(HANDOUTPDF) \
 	$(HANDOUTODT)
 
@@ -88,6 +90,13 @@ rebuild-reveal : \
 	$(REVEALSIM) \
 	$(REVEALNIG) \
 	$(REVEALUR)
+
+dz : \
+	$(DZUR)
+
+rebuild-dz : \
+	clean-dz \
+	$(DZUR)
 
 handout : \
 	$(HANDOUTPDF) \
@@ -329,6 +338,20 @@ $(O_DIR)/%.ur.reveal.vortrag.htm: %.ur.md
 	$< -o $@
 	@echo '* Reveal (uni) erstellt.'
 
+$(O_DIR)/%.ur.dzslides.vortrag.htm: %.ur.md
+	@pandoc \
+	-V lang=de \
+	--template=Template/DZSLIDES/dzslides-template.htm \
+	-s \
+	-S \
+	--self-contained \
+	--biblio Quellen/Quellen.bib \
+	--csl $(CSL) \
+	-f markdown \
+	-t dzslides \
+	$< -o $@
+	@echo '* dzslides (uni) erstellt.'
+
 $(O_DIR)/%.handout.vortrag.tex: %.ur.md
 	@pandoc \
 	-V mainfont:'Frutiger Next LT W1G' -V sansfont:'Frutiger Next LT W1G' \
@@ -368,6 +391,11 @@ clean-handout : ;
 	$(HANDOUTPDF) \
 	$(HANDOUTODT)
 	@echo '* Handout-Dateien gelöscht.'
+
+clean-dz : ;
+	@-rm \
+	$(DZUR)
+	@echo '* DZ-SLides gelöscht.'
 
 clean-beamer : ;
 	@-rm \
