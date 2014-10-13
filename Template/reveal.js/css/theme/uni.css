@@ -180,3 +180,13 @@ section.future {
   -moz-hyphens:none;
   hyphens:none;
 }
+
+div.references {
+  text-align:left;
+}
+
+div.references::before {
+    content: "Quellen:";
+} 
+
+
