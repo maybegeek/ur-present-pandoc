@@ -12,6 +12,7 @@ $endif$
   <style type="text/css">code{white-space: pre;}</style>
   <!-- testing webfont for use with self-contained -->
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic' rel='stylesheet' type='text/css'>
+  <link href='Template/DZSLIDES/dzslides-template.css' rel='stylesheet' type='text/css'>
 $if(highlighting-css)$
   <style type="text/css">
 $highlighting-css$
@@ -82,29 +83,6 @@ $else$
     height:4px;
   }
   
-  /* blacken */
-
-  body.loaded .pause-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #808080;
-    visibility: hidden;
-    opacity: 0;
-    z-index: 100;
-    -webkit-transition: all 1s ease;
-    -moz-transition: all 1s ease;
-    -ms-transition: all 1s ease;
-    -o-transition: all 1s ease;
-    transition: all 1s ease;
-  }
-  body.loaded.paused .pause-overlay {
-    visibility: visible;
-    opacity: 1;
-  }
-
   /* Transition effect */
   /* Feel free to change the transition effect for original
      animations. See here:
@@ -344,46 +322,36 @@ $include-after$
 $endfor$
 $dzslides-core$
 <script>
-	/**
-* Enters the paused mode which fades everything on screen to
-* black.
-*/
+/** pause() **/
 function pause() {
-var wasPaused = dom.wrapper.classList.contains( 'paused' );
-cancelAutoSlide();
-dom.wrapper.classList.add( 'paused' );
-if( wasPaused === false ) {
-dispatchEvent( 'paused' );
+  var dom = document.querySelector( 'body' );
+  var wasPaused = dom.classList.contains( 'paused' );
+  dom.classList.add( 'paused' );
 }
-}
-/**
-* Exits from the paused mode.
-*/
+/** resume() **/
 function resume() {
-var wasPaused = dom.wrapper.classList.contains( 'paused' );
-dom.wrapper.classList.remove( 'paused' );
-cueAutoSlide();
-if( wasPaused ) {
-dispatchEvent( 'resumed' );
+  var dom = document.querySelector( 'body' );
+  var wasPaused = dom.classList.contains( 'paused' );
+  dom.classList.remove( 'paused' );
 }
-}
-/**
-* Toggles the paused mode on and off.
-*/
-function togglePause() {
-if( isPaused() ) {
-resume();
-}
-else {
-pause();
-}
-}
-/**
-* Checks if we are currently in the paused mode.
-*/
+/** isPaused() **/
 function isPaused() {
-return dom.wrapper.classList.contains( 'paused' );
+  dom = document.querySelector( 'body' );
+  return dom.classList.contains( 'paused' );
 }
+/** togglePause() **/
+function togglePause() {
+  if( isPaused() ) {
+    resume();
+  }
+  else {
+    pause();
+  }
+}
+
+
+
+
 </script>
 </body>
 </html>
